@@ -14,6 +14,17 @@
 - Расчёта продвинутых метрик эффективности
 - Визуализации результатов анализа
 
+## Как пользователь будет взаимодействовать с гемом
+```ruby
+# Определение вероятности попадания игрока из заданной позиции с известным защитником
+player = nba_data.find_player('Robinson, Nate')
+chance = player.scoring_chance(position: 'A', defender: 'Young, James')
+
+# Определение эффективности защитника под кольцом / на расстоянии от кольца
+player = nba_data.find_player('Rush, Brandon')
+efficiency = player.defender_efficiency(distance_from_basket: 5.0)
+```
+
 ## Выбранный датасет/API
 NBA shot logs
 
@@ -35,3 +46,4 @@ GAME_ID,MATCHUP,LOCATION,W,FINAL_MARGIN,SHOT_NUMBER,PERIOD,GAME_CLOCK,SHOT_CLOCK
 21400890,"MAR 03, 2015 - CHA vs. LAL",H,W,1,4,4,8:55,4.3,2,2.9,5.9,2,made,"Hill, Jordan",201941,5.4,1,2,brian roberts,203148
 21400882,"MAR 01, 2015 - CHA @ ORL",A,W,15,1,4,9:10,4.4,0,0.8,26.4,3,missed,"Green, Willie",2584,4.4,0,0,brian roberts,203148
 21400859,"FEB 27, 2015 - CHA @ BOS",A,L,-8,1,1,0:48,6.8,0,0.5,22.8,3,missed,"Smart, Marcus",203935,5.3,0,0,brian roberts,203148
+```
