@@ -41,7 +41,7 @@ player = nba_data.find_player('Rush, Brandon')
 efficiency = player.defender_efficiency(distance_from_basket: 5.0)
 ```
 
-## Выбранный датасет/API
+## Выбранный датасет
 NBA shot logs
 
 Пример данных:
