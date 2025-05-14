@@ -16,6 +16,9 @@
 
 ## Как пользователь будет взаимодействовать с гемом
 ```ruby
+# Считывание логов бросков игроков
+nba_data = read_file_nba('example.csv')
+
 # Определение количества бросков у игрока
 player = nba_data.find_player('Rush, Brandon')
 shots_count = player.count_shots()
