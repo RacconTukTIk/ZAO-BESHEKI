@@ -21,11 +21,11 @@ nba_data = read_file_nba('example.csv')
 
 # Определение количества бросков у игрока
 player = nba_data.find_player('Rush, Brandon')
-shots_count = player.count_shots()
+shots_count = player.count_shots
 
 # Определение количества попаданий у игрока
 player = nba_data.find_player('Robinson, Nate')
-good_shots_count = player.count_success_shots()
+good_shots_count = player.count_success_shots
 
 # Определение вероятности попадания игрока из заданной позиции с известным защитником
 player = nba_data.find_player('Anderson, Alan')
@@ -33,11 +33,11 @@ chance = player.scoring_chance(position: 'A', defender: 'Young, James')
 
 # Определение количества раз, когда защитник был ближайшим к месту, откуда в кольцо был брошен мяч
 player = nba_data.find_player('Bogdanovic, Bojan')
-defends = player.count_all_defences()
+defends = player.count_all_defences
 
 # Определение количества отбитых защитником мячей
 player = nba_data.find_player('Lin, Jeremy')
-success_defends = player.count_success_defences()
+success_defends = player.count_success_defences
 
 # Определение эффективности защитника под кольцом / на расстоянии от кольца
 player = nba_data.find_player('Williams, Deron')
