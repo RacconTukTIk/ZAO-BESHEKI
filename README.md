@@ -43,7 +43,7 @@ success_defends = player.count_success_defences
 player = nba_data.find_player('Williams, Deron')
 efficiency = player.defender_efficiency(distance_from_basket: 5.0, atacker: 'Plumlee, Mason')
 
-# Определение средних значений по всем игрокам
+# Определение средних значений по всему файлу
 
 ```
 
