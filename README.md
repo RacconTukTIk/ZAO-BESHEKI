@@ -47,6 +47,14 @@ efficiency = player.defender_efficiency(distance_from_basket: 5.0, atacker: 'Plu
 team=nba.data.find_team('LAL')
 averageScore=team.count_average_score(game: '21400899')
 
+#Cколько раз за матч игрок уходил в дриблинг
+player=nba.data.find_player("Anderson, Alan")
+dribbles_count=player.count_dribbles
+
+#cредняя дистанция, с которой игрок производит атаку
+player=nba.data.find_player("Anderson, Alan")
+distance_attack=player.attack_distance
+
 ```
 
 ## Выбранный датасет
