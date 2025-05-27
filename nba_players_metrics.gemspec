@@ -5,19 +5,15 @@ require_relative "lib/nba_players_metrics/version"
 Gem::Specification.new do |spec|
   spec.name = "nba_players_metrics"
   spec.version = NbaPlayersMetrics::VERSION
-  spec.authors = ["muzeel"]
+  spec.authors = ["muzeel", "RacconTukTik", "majorcom", "dsinelnikov857"]
   spec.email = ["vasilets.4@mail.ru"]
 
-  spec.summary = "TODO: Write a short summary, because RubyGems requires one."
-  spec.description = "TODO: Write a longer description or delete this line."
-  spec.homepage = "TODO: Put your gem's website or public repo URL here."
+  spec.summary = "Метрики игроков NBA и статистика матчей"
+  spec.description = "Гем для анализа эффективности спортсменов/команд на основе статистических данных."
+  spec.homepage = "https://github.com/RacconTukTIk/ZAO-BESHEKI"
   spec.required_ruby_version = ">= 3.1.0"
-
-  spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
-
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/RacconTukTIk/ZAO-BESHEKI"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -34,6 +30,8 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
+
+  spec.add_dependency "sinatra", "~> 3.1"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
