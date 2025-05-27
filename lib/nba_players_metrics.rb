@@ -166,6 +166,115 @@ module NbaPlayersMetrics
         }
       end
     end
+
+    # Класс для представления команды
+    class Team
+      def initialize(name, games_data)
+        @name = name
+        @games_data = games_data
+      end
+
+      # Среднее количество очков за матч
+      def count_average_score(game_id: nil)
+        games = game_id ? [find_game(game_id)] : @games_data
+        return 0 if games.empty?
+        (games.sum { |g| g[:team_score] } / games.size.to_f).round(1)
+      end
+
+      # Результаты игр
+      def game_results
+        @games_data.map do |game|
+          {
+            game_id: game[:game_id],
+            score: game[:team_score],
+            opponent: game[:opponent],
+            result: game[:team_score] > game[:opponent_score] ? 'W' : 'L',
+            date: parse_game_date(game[:matchup])
+          }
+        end
+      end
+
+      private
+
+      def find_game(game_id)
+        @games_data.find { |g| g[:game_id] == game_id } || {}
+      end
+
+      def parse_game_date(matchup)
+        date_str = matchup.split(' - ').first
+        Date.parse(date_str)
+      end
+    end
+
+    private
+
+    # Парсинг CSV файла
+    def parse_csv(file_path)
+      unless File.exist?(file_path)
+        raise Error, "File not found: #{file_path}"
+      end
+
+      CSV.read(file_path, headers: true, header_converters: :symbol).map do |row|
+        {
+          game_id: row[:game_id],
+          matchup: row[:matchup],
+          location: row[:location],
+          shot_number: row[:shot_number].to_i,
+          period: row[:period].to_i,
+          game_clock: row[:game_clock],
+          shot_clock: row[:shot_clock].empty? ? nil : row[:shot_clock].to_f,
+          dribbles: row[:dribbles].to_i,
+          shot_dist: row[:shot_dist].to_f,
+          pts_type: row[:pts_type].to_i,
+          shot_result: row[:shot_result] == 'made',
+          closest_defender: row[:closest_defender],
+          defender_dist: row[:close_def_dist].to_f,
+          pts: row[:pts].to_i,
+          player_name: row[:player_name],
+          player_id: row[:player_id].to_i
+        }
+      end
+    end
+
+    # Создание индекса игроков
+    def create_players_index
+      @shots_data.group_by { |shot| shot[:player_name] }
+    end
+
+    # Создание индекса команд
+    def create_teams_index
+      @shots_data.each_with_object({}) do |shot, result|
+        team_code = parse_team_code(shot[:matchup])
+        game_id = shot[:game_id]
+
+        result[team_code] ||= {}
+        result[team_code][game_id] ||= {
+          game_id: game_id,
+          matchup: shot[:matchup],
+          team_score: 0,
+          opponent_score: 0,
+          opponent: parse_opponent_code(shot[:matchup])
+        }
+
+        result[team_code][game_id][:team_score] += shot[:pts] if shot[:shot_result]
+      end.transform_values { |games| games.values }
+    end
+
+    # Создание индекса защитных ситуаций
+    def create_defence_index
+      @shots_data.group_by { |shot| shot[:closest_defender] }
+    end
+
+    # Парсинг кода команды из строки матча
+    def parse_team_code(matchup)
+      matchup.split(' - ').last.split(/ @ | vs /).first
+    end
+
+    # Парсинг кода соперника из строки матча
+    def parse_opponent_code(matchup)
+      matchup.split(' - ').last.split(/ @ | vs /).last
+    end
+  end
   end
 
   # Фабричный метод для создания экземпляра Stats
