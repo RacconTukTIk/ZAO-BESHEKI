@@ -6,5 +6,14 @@ require 'date'
 
 module NbaPlayersMetrics
   class Error < StandardError; end
-  # Your code goes here...
+  
+  # Основной класс для работы с данными NBA
+  class Stats
+
+  end
+
+  # Фабричный метод для создания экземпляра Stats
+  def self.load_data(file_path)
+    Stats.new(file_path)
+  end
 end
