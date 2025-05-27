@@ -275,7 +275,6 @@ module NbaPlayersMetrics
       matchup.split(' - ').last.split(/ @ | vs /).last
     end
   end
-  end
 
   # Фабричный метод для создания экземпляра Stats
   def self.load_data(file_path)
